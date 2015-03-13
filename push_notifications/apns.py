@@ -39,12 +39,6 @@ def _apns_create_socket(address_tuple):
 			'You need to set PUSH_NOTIFICATIONS_SETTINGS["APNS_CERTIFICATE"] to send messages through APNS.'
 		)
 
-	try:
-		with open(certfile, "r") as f:
-			f.read()
-	except Exception as e:
-		raise ImproperlyConfigured("The APNS certificate file at %r is not readable: %s" % (certfile, e))
-
 	sock = socket.socket()
 	sock = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1, certfile=certfile, keyfile=keyfile)
 	sock.connect(address_tuple)
